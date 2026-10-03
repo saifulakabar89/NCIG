@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NCIG — Stock & Order Prototype</title>
+<style>
+:root{--ink:#101418;--muted:#66707a;--line:#e7eaee;--bg:#f6f7f9;--card:#fff;--green:#168447;--yellow:#b77900;--red:#c62828}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}.nav{height:68px;background:#0d1115;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;z-index:10}.logo{font-size:24px;font-weight:900;letter-spacing:1px}.navlinks{display:flex;gap:26px;font-size:14px}.navlinks a{cursor:pointer;opacity:.9}.navlinks a:hover{opacity:1}
+.hero{background:linear-gradient(120deg,#0c1116,#1b242d);color:#fff;padding:72px 6%;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}.hero h1{font-size:52px;line-height:1.02;margin:0 0 18px}.hero p{color:#cbd2d8;max-width:560px;font-size:17px}.hero-img{height:300px;border-radius:22px;background:radial-gradient(circle at 65% 40%,#5b6874 0 5%,transparent 6%),linear-gradient(145deg,#202a33,#080b0e);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px #0006}.device{width:90px;height:210px;border-radius:25px;background:linear-gradient(160deg,#111,#4d5863,#111);box-shadow:0 25px 50px #000;transform:rotate(7deg)}
+.wrap{max-width:1180px;margin:auto;padding:42px 6%}.features{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-28px;position:relative}.feature,.card,.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}.feature b{display:block;margin-bottom:5px}.muted{color:var(--muted);font-size:13px}.sectionhead{display:flex;justify-content:space-between;align-items:end;margin:42px 0 20px}.sectionhead h2{margin:0;font-size:28px}.products{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.prod-img{height:190px;border-radius:12px;background:linear-gradient(145deg,#eef1f4,#cdd4da);display:flex;align-items:center;justify-content:center;margin-bottom:15px}.mini-device{height:135px;width:52px;border-radius:15px;background:linear-gradient(160deg,#101418,#697580,#151a1f);box-shadow:0 15px 25px #0003}.price{font-size:20px;font-weight:800;margin:9px 0}.badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700}.dot{width:8px;height:8px;border-radius:50%;display:inline-block}.available .dot{background:var(--green)}.low .dot{background:#e0a400}.out .dot{background:var(--red)}.btn{border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer;background:#0d1115;color:#fff}.btn.secondary{background:#fff;color:#111;border:1px solid #cfd5da}.btn.full{width:100%}.actions{display:flex;gap:8px;margin-top:14px}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px;z-index:30}.modal.show{display:flex}.modalbox{max-width:850px;width:100%;background:#fff;border-radius:20px;padding:24px}.close{float:right;border:0;background:#eee;border-radius:50%;width:34px;height:34px;cursor:pointer}.detail{display:grid;grid-template-columns:1fr 1fr;gap:25px}.detail-img{min-height:360px;border-radius:15px;background:linear-gradient(145deg,#eef1f4,#cbd3d9);display:flex;align-items:center;justify-content:center}.detail-img .mini-device{transform:scale(1.5)}.qty{display:flex;align-items:center;gap:12px;margin:20px 0}.qty button{width:38px;height:38px;border:1px solid #ddd;background:#fff;border-radius:9px;font-size:20px;cursor:pointer}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field input,.field select,.field textarea{padding:12px;border:1px solid #d7dce1;border-radius:10px;font:inherit}.summary{background:#f5f7f8;border-radius:14px;padding:18px;margin:18px 0}.success{text-align:center;padding:35px}.success .check{font-size:58px}.admin{display:grid;grid-template-columns:1fr 1fr;gap:16px}.stat{padding:20px;border:1px solid var(--line);border-radius:15px;background:#fff}.stat strong{display:block;font-size:30px;margin-top:8px}.table{width:100%;border-collapse:collapse;background:#fff}.table th,.table td{padding:12px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}.footer{background:#0d1115;color:#fff;padding:35px 6%;margin-top:40px}.hidden{display:none!important}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding:50px 6%}.hero h1{font-size:39px}.features,.products,.admin{grid-template-columns:1fr 1fr}.detail{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.navlinks{gap:12px;font-size:12px}.wrap{padding:30px 5%}}
+@media(max-width:520px){.features,.products,.admin{grid-template-columns:1fr}.nav{padding:0 4%}.navlinks a:nth-child(3){display:none}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="logo">NCIG</div>
+  <nav class="navlinks">
+    <a onclick="go('home')">Home</a><a onclick="go('products')">Products</a><a onclick="go('order')">Place Order</a><a onclick="go('admin')">Admin Demo</a>
+  </nav>
+</header>
+
+<main>
+<section id="home" class="page">
+  <div class="hero">
+    <div><div class="muted" style="color:#aeb8c1">PRODUCT CATALOGUE & ORDERING</div>
+      <h1>Check Stock &<br>Place Your Order</h1>
+      <p>Real-time catalogue concept connected to the Products and Orders sheets. This prototype demonstrates the customer experience before connecting Google Sheets live.</p>
+      <div class="actions"><button class="btn" onclick="go('products')">View Products</button><button class="btn secondary" onclick="go('order')">Place Order</button></div>
+    </div>
+    <div class="hero-img"><div class="device"></div></div>
+  </div>
+  <div class="wrap">
+    <div class="features">
+      <div class="feature">🟢 <b>Live Stock</b><span class="muted">Availability shown from inventory.</span></div>
+      <div class="feature">🚚 <b>Delivery / Postage</b><span class="muted">Customer chooses fulfilment.</span></div>
+      <div class="feature">⚡ <b>Fast Processing</b><span class="muted">Order captured in one form.</span></div>
+      <div class="feature">📲 <b>Confirmation</b><span class="muted">Order ID generated instantly.</span></div>
+    </div>
+    <div class="sectionhead"><div><h2>Our Products</h2><span class="muted">Sample data from your Excel backend</span></div><button class="btn secondary" onclick="go('products')">View all</button></div>
+    <div id="homeProducts" class="products"></div>
+  </div>
+</section>
+
+<section id="products" class="page hidden">
+  <div class="wrap"><div class="sectionhead"><div><h2>Our Products</h2><span class="muted">Stock status is calculated from inventory.</span></div></div><div id="allProducts" class="products"></div></div>
+</section>
+
+<section id="order" class="page hidden">
+  <div class="wrap"><div class="panel"><h2>Place Your Order</h2><p class="muted">Fill in your details and submit your order.</p>
+    <form id="orderForm">
+      <div class="formgrid">
+        <label class="field">Name *<input required id="name"></label>
+        <label class="field">Company<input id="company"></label>
+        <label class="field">Phone *<input required id="phone"></label>
+        <label class="field">Email<input type="email" id="email"></label>
+        <label class="field">Product *<select required id="productSelect"></select></label>
+        <label class="field">Variant<select id="variantSelect"><option>Black</option></select></label>
+        <label class="field">Quantity *<input required type="number" min="1" value="1" id="qty"></label>
+        <label class="field">Delivery Method<select id="delivery"><option>Pickup</option><option>Postage</option><option>Delivery</option></select></label>
+        <label class="field full">Address<textarea id="address" rows="3"></textarea></label>
+        <label class="field">State<input id="state"></label>
+        <label class="field">Postcode<input id="postcode"></label>
+        <label class="field full">Notes<textarea id="notes" rows="3"></textarea></label>
+      </div>
+      <div class="summary" id="orderSummary">Select a product to see total.</div>
+      <button class="btn full" type="submit">Submit Order</button>
+    </form>
+  </div></div>
+</section>
+
+<section id="admin" class="page hidden">
+  <div class="wrap"><div class="sectionhead"><div><h2>Admin Dashboard Demo</h2><span class="muted">This mirrors the Google Sheets dashboard.</span></div></div>
+    <div class="admin">
+      <div class="stat">Today's Orders<strong id="statOrders">1</strong></div>
+      <div class="stat">New Orders<strong>1</strong></div>
+      <div class="stat">Processing<strong>0</strong></div>
+      <div class="stat">Shipped<strong>0</strong></div>
+      <div class="stat">Total Sales<strong id="statSales">RM795</strong></div>
+      <div class="stat">Low Stock<strong id="statLow">1</strong></div>
+    </div>
+    <div class="sectionhead"><h2>Products</h2></div>
+    <div class="panel" style="overflow:auto"><table class="table"><thead><tr><th>SKU</th><th>Product</th><th>Price</th><th>Stock</th><th>Status</th><th>Active</th></tr></thead><tbody id="adminProducts"></tbody></table></div>
+  </div>
+</section>
+</main>
+
+<div id="modal" class="modal"><div class="modalbox"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+
+<footer class="footer"><div class="logo">NCIG</div><div class="muted" style="color:#aeb8c1;margin-top:8px">Real Products. Real Stock. Real Support.</div></footer>
+
+<script>
+const products = [{"sku": "NCIG001", "product": "NCIG One", "category": "NCIG", "variant": "Black", "price": 89, "stock": 25, "low": 5, "active": "YES"}, {"sku": "NCIG002", "product": "NCIG Cube", "category": "NCIG", "variant": "Black", "price": 99, "stock": 5, "low": 5, "active": "YES"}, {"sku": "NCIG003", "product": "NCIG Pro", "category": "NCIG", "variant": "Black", "price": 129, "stock": 12, "low": 5, "active": "YES"}, {"sku": "NCIG004", "product": "NCIG Ultra", "category": "NCIG", "variant": "Black", "price": 159, "stock": 45, "low": 10, "active": "YES"}];
+let selected = null;
+
+function status(p){ if(p.stock<=0)return ['OUT OF STOCK','out']; if(p.stock<=p.low)return ['LOW STOCK','low']; return ['AVAILABLE','available']; }
+function money(n){return 'RM'+Number(n).toLocaleString('en-MY',{minimumFractionDigits:0,maximumFractionDigits:2});}
+function card(p){
+  const [s,c]=status(p), disabled=s==='OUT OF STOCK';
+  return `<div class="card">
+    <div class="prod-img"><div class="mini-device"></div></div>
+    <b>${p.product}</b><div class="muted">${p.variant} · Starter Kit</div>
+    <div class="price">${money(p.price)}</div><span class="badge ${c}"><span class="dot"></span>${s}</span>
+    <div class="actions"><button class="btn secondary" onclick="details('${p.sku}')">View Details</button><button class="btn" ${disabled?'disabled style="opacity:.45"':''} onclick="quickOrder('${p.sku}')">Order Now</button></div>
+  </div>`;
+}
+function render(){
+  document.getElementById('homeProducts').innerHTML=products.slice(0,4).map(card).join('');
+  document.getElementById('allProducts').innerHTML=products.filter(p=>p.active==='YES').map(card).join('');
+  document.getElementById('productSelect').innerHTML=products.filter(p=>p.active==='YES'&&p.stock>0).map(p=>`<option value="${p.sku}">${p.product} — ${money(p.price)}</option>`).join('');
+  document.getElementById('adminProducts').innerHTML=products.map(p=>{const[s,c]=status(p);return `<tr><td>${p.sku}</td><td>${p.product}</td><td>${money(p.price)}</td><td>${p.stock}</td><td><span class="badge ${c}"><span class="dot"></span>${s}</span></td><td>${p.active}</td></tr>`}).join('');
+  updateSummary();
+}
+function go(id){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+function details(sku){
+  const p=products.find(x=>x.sku===sku),[s,c]=status(p);
+  document.getElementById('modalContent').innerHTML=`<div class="detail"><div class="detail-img"><div class="mini-device"></div></div><div><div class="muted">${p.category} / ${p.sku}</div><h2>${p.product}</h2><div class="price">${money(p.price)}</div><span class="badge ${c}"><span class="dot"></span>${s}</span><h4>Key Features</h4><ul><li>Sleek premium design</li><li>Multiple colour options</li><li>Product information shown from catalogue</li></ul><div class="qty"><button onclick="changeQty(-1)">−</button><b id="modalQty">1</b><button onclick="changeQty(1)">+</button></div><button class="btn full" ${s==='OUT OF STOCK'?'disabled':''} onclick="quickOrder('${p.sku}')">Order Now</button></div></div>`;
+  selected=p;document.getElementById('modal').classList.add('show');
+}
+function changeQty(d){let el=document.getElementById('modalQty');let n=Math.max(1,Number(el.textContent)+d);el.textContent=n;}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+function quickOrder(sku){closeModal();go('order');document.getElementById('productSelect').value=sku;updateSummary();}
+function updateSummary(){const p=products.find(x=>x.sku===document.getElementById('productSelect')?.value);if(!p)return;const q=Math.max(1,Number(document.getElementById('qty').value||1));document.getElementById('orderSummary').innerHTML=`<b>Order Summary</b><br>${p.product} × ${q}<br><strong>Total: ${money(p.price*q)}</strong>`;}
+document.getElementById('qty').addEventListener('input',updateSummary);
+document.getElementById('productSelect').addEventListener('change',updateSummary);
+document.getElementById('orderForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const p=products.find(x=>x.sku===document.getElementById('productSelect').value),q=Number(document.getElementById('qty').value);
+  if(q>p.stock){alert('Quantity exceeds available stock.');return}
+  const now=new Date(), id='ORD-'+now.toISOString().slice(0,10).replaceAll('-','')+'-'+String(Math.floor(Math.random()*9999)+1).padStart(4,'0');
+  const total=p.price*q;
+  document.querySelector('#order .panel').innerHTML=`<div class="success"><div class="check">✓</div><h2>Thank You!</h2><p>Your order has been submitted successfully.</p><div class="summary"><b>Order ID</b><h3>${id}</h3>${p.product} × ${q}<br><strong>Total: ${money(total)}</strong></div><button class="btn full" onclick="whatsapp('${id}')">Chat on WhatsApp</button><button class="btn secondary full" style="margin-top:8px" onclick="location.reload()">Back to Home</button></div>`;
+});
+function whatsapp(id){alert('Prototype: this button will open your WhatsApp with the Order ID '+id+' once your business number is connected.');}
+render();
+</script>
+</body>
+</html>
